@@ -66,6 +66,13 @@ export const normalAchievements = [
     get reward() { return `Uncap purchases of the 6th Antimatter Dimension.`; },
   },
   {
+    id: 19,
+    name: "That dimension doesn't exist",
+    description: "Reach the fabled 9th dimension.",
+    checkEvent: GAME_EVENT.ACHIEVEMENT_EVENT_OTHER,
+    get reward() { return `Uncap purchases of the 7th and 8th Antimatter Dimensions.`; },
+  },
+  {
     id: 21,
     name: "To infinity!",
     description: "Go Infinite.",
