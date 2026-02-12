@@ -1276,10 +1276,10 @@ export const normalAchievements = [
     id: 172,
     name: "Hitchhiker's Guide to Reality",
     get description() {
-      return `Reality for ${format(Decimal.NUMBER_MAX_VALUE, 1)} Reality Machines without having
+      return `Reality for ${formatPostBreak(DC.E1000)} Reality Machines without having
       any Charged Infinity Upgrades, having any equipped Glyphs, or buying any Triad Studies.`;
     },
-    checkRequirement: () => MachineHandler.gainedRealityMachines.gte(Decimal.NUMBER_MAX_VALUE) &&
+    checkRequirement: () => MachineHandler.gainedRealityMachines.gte(DC.D9_99999E999) &&
       player.celestials.ra.charged.size === 0 && Glyphs.activeWithoutCompanion.length === 0 &&
       player.requirementChecks.reality.noTriads,
     checkEvent: GAME_EVENT.REALITY_RESET_BEFORE,
