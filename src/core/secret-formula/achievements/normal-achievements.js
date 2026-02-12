@@ -245,13 +245,7 @@ export const normalAchievements = [
     description:
       "Get the 8th Antimatter Dimension multiplier to be highest, 7th Antimatter Dimension multiplier " +
       " second highest, etc.",
-    checkRequirement: () => {
-      const multipliers = Array.range(1, 8).map(tier => AntimatterDimension(tier).multiplier);
-      for (let i = 0; i < multipliers.length - 1; i++) {
-        if (multipliers[i].gte(multipliers[i + 1])) return false;
-      }
-      return true;
-    },
+    checkRequirement: () => true,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() {
       return `Each Antimatter Dimension gains a boost proportional to tier
