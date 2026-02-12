@@ -168,7 +168,7 @@ export const normalAchievements = [
     id: 34,
     name: "You didn't need it anyway",
     description: "Infinity without having any 8th Antimatter Dimensions.",
-    checkRequirement: () => AntimatterDimension(8).totalAmount.eq(0),
+    checkRequirement: () => player.requirementChecks.infinity.noAD8,
     checkEvent: GAME_EVENT.BIG_CRUNCH_BEFORE,
     get reward() { return `Dimensions 1-7 are ${formatPercents(0.02)} stronger.`; },
     effect: 1.02
@@ -901,7 +901,7 @@ export const normalAchievements = [
       or any 1st Antimatter Dimensions in your current Eternity.`;
     },
     checkRequirement: () => Currency.infinityPoints.exponent >= 90 &&
-      player.requirementChecks.eternity.noAD1 && Currency.infinities.eq(0),
+      player.requirementChecks.eternity.noAD1 && Currency.infinities.eq(0) && !NormalChallenge(12).isRunning,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     reward: "Infinity Point multiplier based on time spent this Infinity.",
     effect() {
@@ -932,8 +932,8 @@ export const normalAchievements = [
   {
     id: 128,
     name: "What do I have to do to get rid of you",
-    get description() { return `Reach ${formatPostBreak("1e22000")} Infinity Points without any Time Studies.`; },
-    checkRequirement: () => Currency.infinityPoints.exponent >= 22000 && player.timestudy.studies.length === 0,
+    get description() { return `Reach ${formatPostBreak("1e30000")} Infinity Points without any Time Studies.`; },
+    checkRequirement: () => Currency.infinityPoints.exponent >= 30000 && player.timestudy.studies.length === 0,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     reward: "Time Dimensions are multiplied by the number of Time Studies you have.",
     effect: () => Math.max(player.timestudy.studies.length, 1),
@@ -942,8 +942,8 @@ export const normalAchievements = [
   {
     id: 131,
     name: "No ethical consumption",
-    get description() { return `Get ${format(DC.D2E9)} Banked Infinities.`; },
-    checkRequirement: () => Currency.infinitiesBanked.gt(DC.D2E9),
+    get description() { return `Get ${format(DC.D5E9)} Banked Infinities.`; },
+    checkRequirement: () => Currency.infinitiesBanked.gt(DC.D5E9),
     checkEvent: [GAME_EVENT.ETERNITY_RESET_AFTER, GAME_EVENT.SAVE_CONVERTED_FROM_PREVIOUS_VERSION],
     get reward() {
       return `You gain ${formatX(2)} times more Infinities and
@@ -1010,11 +1010,11 @@ export const normalAchievements = [
     name: "Now you're thinking with dilation!",
     get description() {
       return `Get ${formatPostBreak("1e260000")} antimatter
-      in ${formatInt(1)} minute or less while Dilated.`;
+      in ${formatInt(10)} seconds or less while Dilated.`;
     },
     checkRequirement: () =>
       Currency.antimatter.exponent >= 260000 &&
-      Time.thisEternity.totalMinutes <= 1 &&
+      Time.thisEternity.totalMinutes <= 0.16 &&
       player.dilation.active,
     checkEvent: GAME_EVENT.GAME_TICK_AFTER,
     get reward() { return `Gain ${formatX(2)} Dilated Time and Time Theorems while Dilated.`; },
@@ -1124,18 +1124,18 @@ export const normalAchievements = [
     id: 151,
     name: "You really didn't need it anyway",
     get description() {
-      return `Get ${formatInt(800)} Antimatter Galaxies without
+      return `Get ${formatInt(1000)} Antimatter Galaxies without
       buying 8th Antimatter Dimensions in your current Infinity.`;
     },
-    checkRequirement: () => player.galaxies >= 800 && player.requirementChecks.infinity.noAD8,
+    checkRequirement: () => player.galaxies >= 1000 && player.requirementChecks.infinity.noAD8,
     checkEvent: GAME_EVENT.GALAXY_RESET_AFTER,
     reward: "Unlock V, the Celestial of Achievements."
   },
   {
     id: 152,
     name: "Y'all got any more of them Glyphs?",
-    get description() { return `Have ${formatInt(100)} Glyphs in your inventory.`; },
-    checkRequirement: () => Glyphs.inventoryList.length >= 100,
+    get description() { return `Fill your entire Glyph inventory.`; },
+    checkRequirement: () => Glyphs.inventoryList.length >= 120,
     checkEvent: GAME_EVENT.GLYPHS_CHANGED
   },
   {
@@ -1210,7 +1210,7 @@ export const normalAchievements = [
     name: "Actually, super easy! Barely an inconvenience!",
     get description() {
       return `Complete all the Eternity Challenges ${formatInt(5)} times with less than ${formatInt(1)}
-      second (game time) in your current Reality.`;
+      second (game time) in your current Reality, without any Auto Eternity Challenges.`;
     },
     checkRequirement: () => EternityChallenges.all.map(ec => ec.completions).min() >= 5 &&
       Time.thisReality.totalSeconds <= 1,
